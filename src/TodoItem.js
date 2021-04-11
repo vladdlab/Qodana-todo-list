@@ -11,7 +11,7 @@ function TodoItem(props) {
       </CardBody>
       <CardFooter className="TodoButtons">
           <ButtonGroup>
-            <Button theme="success" onClick={() => { props.changeTodoState(props.todo.id) }}>Done</Button>
+            <Button theme="success" onClick={() => { props.changeTodoState(props.todo.id) }}>{props.showDoneTodos ? 'Undone' : 'Done'}</Button>
             <Button theme="danger" onClick={() => { props.deleteTodo(props.todo.id) }}>Delete</Button>
           </ButtonGroup>
         </CardFooter>

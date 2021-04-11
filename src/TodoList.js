@@ -3,8 +3,8 @@ import './TodoList.css';
 import { Nav, NavItem, NavLink } from "shards-react";
 import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
-
-import todoData from './data'
+import {ChartComponent} from 'bar-chart-simple'
+// import 'test-head/dist/index.css'
 
 class TodoList extends React.Component {
   constructor (props) {
@@ -43,6 +43,28 @@ class TodoList extends React.Component {
     localStorage.setItem('todos', JSON.stringify(todos))
   }
 
+  getStatistics() {
+    const statsMap = new Map()
+    this.state.todos.forEach(todo => {
+      if (statsMap.has(todo.date)) {
+        statsMap.get(todo.date).data_value += 1
+      } else {
+        statsMap.set(todo.date, {
+          data_category: todo.date,
+          data_value: 1
+        })
+      }
+    });
+    return Array.from(statsMap.values())
+  }
+
+  renderRightColumn() {
+    if (this.state.showDoneTodos) {
+      return <ChartComponent data={this.getStatistics()} chart_type="bar_chart"/>;
+    }
+    return <AddTodo addTodo={(todo) => { this.addTodo(todo) }}></AddTodo>;
+  }
+
   render () {
     return (
       <div className="TodoList">
@@ -66,7 +88,7 @@ class TodoList extends React.Component {
             {this.renderTodos()}
           </section>
           <article className="Todos_state_undone">
-            <AddTodo addTodo={(todo) => { this.addTodo(todo) }}></AddTodo>
+            {this.renderRightColumn()}
           </article>
         </main>
       </div>

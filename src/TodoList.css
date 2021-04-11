@@ -1,13 +1,13 @@
 
 .TodoList {
   display: grid;
-  grid-template-columns: 300px 1fr 300px;
+  grid-template-columns: 200px 1fr 200px;
 }
 
 .TodoList header {
   grid-column: 2;
 
-  padding: 1em;
+  padding: 1em 0;
 }
 
 .TodoList main {
@@ -20,5 +20,4 @@
 
 .TodoList .Todos_state_done {
   width: 100%;
-  height: 50vh;
 }
